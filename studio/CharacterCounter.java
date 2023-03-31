@@ -2,15 +2,38 @@
 import java.util.Scanner;
 import java.util.HashMap;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import java.io.IOException;
+
 
 public class CharacterCounter {
 
 	public static void main (String[] args) {
-		
-		Scanner input = new Scanner(System.in);
 
-		System.out.print("Enter a word or phrase: ");
-		String phrase = input.nextLine().toLowerCase();
+		String phrase = "";
+
+		if (args.length >= 1) {
+			String filePath = args[0];
+			
+			try {
+				phrase = new String(Files.readAllBytes(Paths.get(filePath)));
+			} catch (IOException e) {
+				;
+			}
+		}
+
+		else {
+			Scanner input = new Scanner(System.in);
+
+			System.out.print("\nEnter a word or phrase: ");
+			phrase = input.nextLine().toLowerCase();
+			System.out.println();
+
+			input.close();
+		}
+		
 
 		char[] characterArray = phrase.toCharArray();
 		HashMap<Character, Integer> characterCount = new HashMap<>();
@@ -26,5 +49,7 @@ public class CharacterCounter {
 		for (char character : characterCount.keySet()) {
 			System.out.println(character + ": " + characterCount.get(character));
 		}
+
+		System.out.println();
 	}
 }
