@@ -20,7 +20,8 @@ public class CharacterCounter {
 			try {
 				phrase = new String(Files.readAllBytes(Paths.get(filePath)));
 			} catch (IOException e) {
-				;
+				System.out.println("\nError reading file!\n");
+				System.exit(0);
 			}
 		}
 
